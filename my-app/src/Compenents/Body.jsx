@@ -57,28 +57,55 @@ const Body = () => {
     }
   }, [currentPageNumber, filteredData]);
 
-  const sortByRateRange = (s, e) => {
-    const newData = data.filter((item) => item.rating >= s && item.rating <= e);
+  const sortByRateRange = (s, e, str) => {
+    if (str === "rating") {
+      const newData = data.filter(
+        (item) => item.rating >= s && item.rating <= e
+      );
 
-    console.log("new data is: ");
-    console.log(newData);
-    setFilteredData(newData);
+      console.log("new data is: ");
+      console.log(newData);
+      setFilteredData(newData);
+    } else {
+      const newData = data.filter((item) => item.price >= s && item.price <= e);
+
+      console.log("new data is: ");
+      console.log(newData);
+      setFilteredData(newData);
+    }
   };
 
-  const handleFilter = (i) => {
+  const handleFilterRate = (i) => {
     //console.log(i);
     if (i === 0) {
       // setDataToDisplay(dataToDisplay.length === 0);
       setCurrentPageNumber(1);
       setFilteredData(filteredData.length === 0);
     } else if (i === 1) {
-      sortByRateRange(1, 2);
+      sortByRateRange(1, 2, "rating");
     } else if (i === 2) {
-      sortByRateRange(2, 3);
+      sortByRateRange(2, 3, "rating");
     } else if (i === 3) {
-      sortByRateRange(3, 4);
+      sortByRateRange(3, 4, "rating");
     } else if (i === 4) {
-      sortByRateRange(4, 5);
+      sortByRateRange(4, 5, "rating");
+    }
+  };
+
+  const handleFilterPrice = (i) => {
+    //console.log(i);
+    if (i === 0) {
+      // setDataToDisplay(dataToDisplay.length === 0);
+      setCurrentPageNumber(1);
+      setFilteredData(filteredData.length === 0);
+    } else if (i === 1) {
+      sortByRateRange(0, 10, "price");
+    } else if (i === 2) {
+      sortByRateRange(10, 100, "price");
+    } else if (i === 3) {
+      sortByRateRange(100, 1000, "price");
+    } else if (i === 4) {
+      sortByRateRange(1000, 300000, "price");
     }
   };
 
@@ -107,27 +134,62 @@ const Body = () => {
           Search
         </button>
       </div>
-      <div className="flex ml-[45%] mt-[2%] gap-2 ">
-        <h1>Filter by Rate:</h1>
-        <select
-          className="bg-purple-400 text-center border-2 border-white"
-          onChange={(e) => handleFilter(Number(e.target.value))}>
-          <option className="bg-blue-400 p-1 border-2 border-black" value="0">
-            Default
-          </option>
-          {/* <option className="bg-blue-400 p-1 border-2 border-black" value="1">
+
+      <div className="flex gap-2 justify-center">
+        {" "}
+        <div className="flex  mt-[2%] gap-2 ">
+          <h1>Filter by Price:</h1>
+          <select
+            className="bg-purple-400 text-center border-2 border-white"
+            onChange={(e) => handleFilterPrice(Number(e.target.value))}>
+            <option className="bg-blue-400 p-1 border-2 border-black" value="0">
+              Default
+            </option>
+            {/* <option className="bg-blue-400 p-1 border-2 border-black" value="1">
             1-2
           </option> */}
-          <option className="bg-blue-400 p-1 border-2 border-black" value="2">
-            2-3
-          </option>
-          <option className="bg-blue-400 p-1 border-2 border-black" value="3">
-            3-4
-          </option>
-          <option className="bg-blue-400 p-1 border-2 border-black " value="4">
-            4-5
-          </option>
-        </select>
+            <option className="bg-blue-400 p-1 border-2 border-black" value="1">
+              0-1K
+            </option>
+            <option className="bg-blue-400 p-1 border-2 border-black" value="2">
+              1k-10k
+            </option>
+            <option
+              className="bg-blue-400 p-1 border-2 border-black "
+              value="3">
+              10K-1L
+            </option>
+            <option
+              className="bg-blue-400 p-1 border-2 border-black "
+              value="4">
+              1L-3L
+            </option>
+          </select>
+        </div>
+        <div className="flex  mt-[2%] gap-2 ">
+          <h1>Filter by Rate:</h1>
+          <select
+            className="bg-purple-400 text-center border-2 border-white"
+            onChange={(e) => handleFilterRate(Number(e.target.value))}>
+            <option className="bg-blue-400 p-1 border-2 border-black" value="0">
+              Default
+            </option>
+            {/* <option className="bg-blue-400 p-1 border-2 border-black" value="1">
+            1-2
+          </option> */}
+            <option className="bg-blue-400 p-1 border-2 border-black" value="2">
+              2-3
+            </option>
+            <option className="bg-blue-400 p-1 border-2 border-black" value="3">
+              3-4
+            </option>
+            <option
+              className="bg-blue-400 p-1 border-2 border-black "
+              value="4">
+              4-5
+            </option>
+          </select>
+        </div>
       </div>
 
       {dataToDisplay && <TableContent item={dataToDisplay} />}
