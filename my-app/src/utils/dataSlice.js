@@ -13,6 +13,9 @@ const dataSlice = createSlice(
             addProduct: (state, action) => {
                 state.productDetails = action.payload;
             },
+            removeProduct: (state, action) => {
+                state.productDetails.length === 0;
+            },
             addSlicedProducts: (state, action) => {
                 state.slicedProducts = action.payload;
             },
@@ -23,5 +26,5 @@ const dataSlice = createSlice(
     }
 )
 
-export const { addProduct, addSlicedProducts, removeSlicedProducts } = dataSlice.actions;
+export const { addProduct, removeProduct, addSlicedProducts, removeSlicedProducts } = dataSlice.actions;
 export default dataSlice.reducer;

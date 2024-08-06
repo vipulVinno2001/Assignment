@@ -66,7 +66,7 @@ const TableContent = ({ item }) => {
               className="gap-4 border border-2 bg-blue-200 hover:bg-blue-300 hover:text-white  "
               key={i.id}>
               <td className="border border-2 p-2 text-justify w-1/3">
-                {i.brand}
+                {i.brand ? i.brand : "NA"}
               </td>
               <td className="border border-2 p-2 text-justify w-1/3">
                 {i.title}

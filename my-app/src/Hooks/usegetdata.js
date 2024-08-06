@@ -15,7 +15,7 @@ const usegetdata = () => {
         try {
             const res = await fetch('https://dummyjson.com/products');
             const result = await res.json();
-            console.log(result.products);
+            // console.log(result.products);
             dispatch(addProduct(result.products));
         }
         catch (error) {
@@ -36,7 +36,8 @@ const usegetdata = () => {
             getData();
 
         }
-    }, []);
+    }, [products
+    ]);
 
     getData();
 
