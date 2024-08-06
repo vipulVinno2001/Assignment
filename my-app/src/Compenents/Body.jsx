@@ -9,6 +9,7 @@ const Body = () => {
   const [dataToDisplay, setDataToDisplay] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+
   const dispatch = useDispatch();
 
   const totalDataPerPage = 5;
@@ -47,6 +48,7 @@ const Body = () => {
   useEffect(() => {
     const start = (currentPageNumber - 1) * totalDataPerPage;
     const end = currentPageNumber * totalDataPerPage;
+
     if (filteredData.length > 0) {
       setDataToDisplay(filteredData.slice(start, end));
     } else if (data.length > 0) {
@@ -54,6 +56,31 @@ const Body = () => {
       setDataToDisplay(data.slice(start, end));
     }
   }, [currentPageNumber, filteredData]);
+
+  const sortByRateRange = (s, e) => {
+    const newData = data.filter((item) => item.rating >= s && item.rating <= e);
+
+    console.log("new data is: ");
+    console.log(newData);
+    setFilteredData(newData);
+  };
+
+  const handleFilter = (i) => {
+    //console.log(i);
+    if (i === 0) {
+      // setDataToDisplay(dataToDisplay.length === 0);
+      setCurrentPageNumber(1);
+      setFilteredData(filteredData.length === 0);
+    } else if (i === 1) {
+      sortByRateRange(1, 2);
+    } else if (i === 2) {
+      sortByRateRange(2, 3);
+    } else if (i === 3) {
+      sortByRateRange(3, 4);
+    } else if (i === 4) {
+      sortByRateRange(4, 5);
+    }
+  };
 
   if (!data) {
     return (
@@ -79,6 +106,28 @@ const Body = () => {
           className="rounded-r-lg bg-blue-400 p-2 border-b-2 border-r-2 border-t-2 border-black">
           Search
         </button>
+      </div>
+      <div className="flex ml-[45%] mt-[2%] gap-2 ">
+        <h1>Filter by Rate:</h1>
+        <select
+          className="bg-purple-400 text-center border-2 border-white"
+          onChange={(e) => handleFilter(Number(e.target.value))}>
+          <option className="bg-blue-400 p-1 border-2 border-black" value="0">
+            Default
+          </option>
+          {/* <option className="bg-blue-400 p-1 border-2 border-black" value="1">
+            1-2
+          </option> */}
+          <option className="bg-blue-400 p-1 border-2 border-black" value="2">
+            2-3
+          </option>
+          <option className="bg-blue-400 p-1 border-2 border-black" value="3">
+            3-4
+          </option>
+          <option className="bg-blue-400 p-1 border-2 border-black " value="4">
+            4-5
+          </option>
+        </select>
       </div>
 
       {dataToDisplay && <TableContent item={dataToDisplay} />}

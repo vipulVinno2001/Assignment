@@ -35,7 +35,7 @@ const TableContent = ({ item }) => {
 
   return (
     <div className="flex justify-center">
-      <table className="w-full ml-[10%] mr-[10%] mt-[5%] shadow shadow-black shadow-lg">
+      <table className="w-full ml-[10%] mr-[10%] mt-[2%] shadow shadow-black shadow-lg">
         <thead>
           <tr className="gap-4 border border-2 bg-blue-500 hover:text-white">
             <th className="border border-2 p-2 w-1/3">Brand</th>
@@ -72,10 +72,10 @@ const TableContent = ({ item }) => {
                 {i.title}
               </td>
               <td className="border border-2 p-2 text-justify w-1/4">
-                {i.price}
+                {(i.price * 100).toFixed(2)}
               </td>
               <td className="border border-2 p-2 text-justify w-1/4">
-                {i.rating}
+                {i.rating.toFixed(1)}
               </td>
             </tr>
           ))}
