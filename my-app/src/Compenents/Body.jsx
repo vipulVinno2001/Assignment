@@ -55,7 +55,7 @@ const Body = () => {
       setFilteredData(data);
       setDataToDisplay(data.slice(start, end));
     }
-  }, [currentPageNumber, filteredData]);
+  }, [currentPageNumber, filteredData, data]);
 
   const sortByRateRange = (s, e, str) => {
     if (str === "rating") {
